@@ -1,0 +1,50 @@
+.product {
+  position: relative;
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: var(--bg-color-layout);
+  border: 1px solid var(--text-color);
+  box-shadow: var(--shadow);
+  overflow-y: auto;
+}
+
+.product__left {
+  width: 100%;
+}
+
+.img {
+  border-radius: 10px;
+  object-fit: contain;
+  width: 150px;
+  height: 150px;
+}
+
+.product__right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.product__price {
+  align-self: flex-end;
+}
+
+.product__like {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+
+/* .active {
+  background: red;
+} */
+
+.active svg g {
+  fill: red;
+}
+
+.iconLike {
+  pointer-events: none;
+}

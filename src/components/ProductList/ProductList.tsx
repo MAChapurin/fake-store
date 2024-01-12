@@ -1,23 +1,28 @@
-export interface ProductItemProps  {
+import { ProductItem } from './ProductItem/ProductItem'
+import styles from './ProductList.module.css'
+
+export interface ProductItemProps {
+  title: string
   category: string
   description: string
   id: number
   image: string
   price: number
+  cb: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
 interface ProductListProps {
   list: ProductItemProps[]
+  cb: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
-export function ProductList({list}: ProductListProps) {
+export function ProductList({ list, cb }: ProductListProps) {
   return (
-    <ul>
-      {list.map((product)=> {
+    <ul className={styles.list}>
+      {list.length === 0 && <p>There is nothing here yet</p>}
+      {list.map((product) => {
         return (
-          <li key={product.id}>
-
-          </li>
+          <ProductItem key={product.id} {...product} cb={cb} />
         )
       })}
     </ul>

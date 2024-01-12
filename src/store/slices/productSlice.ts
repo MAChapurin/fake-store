@@ -8,28 +8,30 @@ interface ApiError {
 }
 
 interface ProductItem {
+  title: string
   category: string;
   description: string;
   id: number;
   image: string;
   price: number;
+  cb: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
 interface ProductState {
   productsAll: ProductItem[];
-  favirites: ProductItem[];
+  favorites: ProductItem[];
   loading: boolean;
   error: null | ApiError;
 }
 
 const initialState: ProductState = {
   productsAll: [],
-  favirites: [],
+  favorites: [],
   loading: false,
   error: null,
 };
 
-export const products = createAsyncThunk(
+export const getProducts = createAsyncThunk(
   "@@/products",
   async (_, { rejectWithValue }) => {
     const res = await fetch(URL.products);
@@ -46,29 +48,30 @@ export const productsSlice = createSlice({
   initialState,
   reducers: {
     reset: (state) => {
-      state.favirites = [];
+      state.favorites = [];
     },
     addProduct: (state, action) => {
-      state.favirites.push(action.payload);
+      state.favorites.push(action.payload);
     },
     removeProduct: (state, action) => {
-      state.favirites = state.favirites.filter(
+      state.favorites = state.favorites.filter(
         (product) => product.id !== action.payload
       );
+    
     },
   },
   extraReducers(builder) {
     builder
-      .addCase(products.pending, (state) => {
+      .addCase(getProducts.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(products.fulfilled, (state, action) => {
+      .addCase(getProducts.fulfilled, (state, action) => {
         state.productsAll = action.payload;
         state.loading = false;
         state.error = null;
       })
-      .addCase(products.rejected, (state, action) => {
+      .addCase(getProducts.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as ApiError;
       });
