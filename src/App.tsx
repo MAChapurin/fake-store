@@ -37,6 +37,7 @@ function App() {
       <Main>
         <Routes>
           <Route path='/' element={<ProductsPage cb={handleClickLike} />} />
+          <Route path='/fake-store/' element={<ProductsPage cb={handleClickLike} />} />
           <Route path='/favorites' element={<FavoritesPage cb={handleClickLike} />} />
         </Routes>
       </Main>
