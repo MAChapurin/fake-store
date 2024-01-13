@@ -1,16 +1,18 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
+
+import cn from 'classnames'
 import styles from './Header.module.css'
 
-type IsActiveType = {
-  isActive: boolean
-}
-
 export function Header() {
-  const isActive = ({ isActive }: IsActiveType) => ({ fontWeight: isActive ? 900 : 500 })
+  const location = useLocation();
   return (
     <header className={styles.header}>
-      <NavLink style={isActive} className={styles.link} to={'/'}>Products</NavLink>
-      <NavLink style={isActive} className={styles.link} to={'/favorites'}>Favorites</NavLink>
+      <NavLink className={cn(styles.link, {
+        [styles.activeLink]: location.pathname === '/'
+      })} to={'/'}>Products</NavLink>
+      <NavLink className={cn(styles.link, {
+        [styles.activeLink]: location.pathname === '/favorites'
+      })} to={'/favorites'}>Favorites</NavLink>
     </header>
   )
 }
